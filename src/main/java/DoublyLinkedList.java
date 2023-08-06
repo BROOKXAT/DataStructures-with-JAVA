@@ -9,6 +9,11 @@ public class DoublyLinkedList {
             this.next = null ;
             this.previous = null ;
         }
+
+        @Override
+        public String toString(){
+            return  this.previous +"<-- "+this.data+" -->"+this.next ;
+        }
     }
     public Node head ;
 
@@ -19,6 +24,9 @@ public class DoublyLinkedList {
     public DoublyLinkedList(int data){
         this.head = new Node(data);
     }
+    //
+
+
     // insertions
     public void insertAtBeginning(int data){
         if (this.head == null) this.head = new Node(data);
