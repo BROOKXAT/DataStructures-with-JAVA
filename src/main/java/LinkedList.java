@@ -51,6 +51,25 @@ public class LinkedList {
         System.out.println("item doesnt exist");
     }
 
+    public void insertAtIndex(int data,int index){
+        if (head == null && index ==0) this.head = new Node( data) ;
+        int counter = 0 ;
+        Node currentnode = this.head ;
+        Node newnode = new Node(data);
+        while (currentnode.next != null){
+            if (counter == index-1){
+                newnode.next = currentnode.next ;
+                currentnode.next = newnode;
+                break;
+            }
+            counter++ ;
+            currentnode = currentnode.next ;
+
+        }
+        if (counter == index -1) currentnode.next = newnode;
+        else System.out.println("index out of range");
+    }
+
     @Override
     public String toString() {
         if (head == null) return "empty linked list" ;
@@ -68,6 +87,8 @@ public class LinkedList {
         LinkedList test = new LinkedList(90);
         test.insertAtBegening(89);
         test.insertAtEnd(76);
+        test.insertAtIndex(456,1);
+        test.insertAtIndex(88,5);
         System.out.println(test);
     }
 }
