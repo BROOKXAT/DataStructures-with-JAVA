@@ -63,9 +63,8 @@ public class DoublyLinkedList {
 
         }
         if (counter == index -1){
-
-            currentnode.next.previous = newnode ;
             currentnode.next = newnode;
+            newnode.previous = currentnode ;
         }
         else System.out.println("index out of range");
     }
@@ -128,6 +127,18 @@ public class DoublyLinkedList {
         currentnode.previous.next = null ;
     }
 
+    public void deletNodeByIndex(int index){
+        Node node = this.getElementByIndex(index);
+        if (node != null){
+            Node  oldprevious = node.previous ;
+            Node oldnext = node.next ;
+            oldprevious.next = oldnext ;
+            oldnext.previous = oldprevious ;
+        }
+
+    }
+
+
 
 
 
@@ -153,8 +164,11 @@ public class DoublyLinkedList {
         dlinkedList.insertAfterNode(existingnode,89);
         dlinkedList.insertBeforNode(existingnode,770);
         System.out.println(dlinkedList);
+        dlinkedList.insertNodeByIndex(6,6);
+        dlinkedList.insertNodeByIndex(5,5);
         dlinkedList.insertNodeByIndex(2,2);
         System.out.println(dlinkedList);
+        dlinkedList.deletNodeByIndex(3);
         dlinkedList.deleteFirstNode();
         dlinkedList.deleteLastNode();
         System.out.println(dlinkedList);
