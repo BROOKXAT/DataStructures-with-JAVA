@@ -25,6 +25,15 @@ public class DoublyLinkedList {
         this.head = new Node(data);
     }
     //
+
+    public Node getLastNode(){
+        if (this.head == null) return  null ;
+        Node currentnode = this.head ;
+        while (currentnode.next != null){
+            currentnode = currentnode.next ;
+        }
+        return currentnode ;
+    }
     public Node getElementByIndex(int index){
         if (this.head == null ){
             System.out.println("empty list");
@@ -138,6 +147,15 @@ public class DoublyLinkedList {
 
     }
 
+    // concatenate
+    public void appendList(DoublyLinkedList list2){
+        if(this.head == null && list2.head == null ) return ;
+        if (list2.head == null) return ;
+        Node list1end = this.getLastNode() ;
+        Node head2copy = list2.head ;
+        list1end.next = head2copy ;
+        head2copy.previous = list1end ;
+    }
 
 
 
@@ -171,6 +189,12 @@ public class DoublyLinkedList {
         dlinkedList.deletNodeByIndex(3);
         dlinkedList.deleteFirstNode();
         dlinkedList.deleteLastNode();
+        System.out.println(dlinkedList);
+        DoublyLinkedList list2 = new DoublyLinkedList(0) ;
+        list2.insertAtEnd(0);
+        list2.insertAtEnd(0);
+        list2.insertAtEnd(0);
+        dlinkedList.appendList(list2);
         System.out.println(dlinkedList);
     }
 }
