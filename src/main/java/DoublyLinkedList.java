@@ -24,6 +24,10 @@ public class DoublyLinkedList {
     public DoublyLinkedList(int data){
         this.head = new Node(data);
     }
+
+    public DoublyLinkedList(Node head){
+        this.head = head ;
+    }
     //
 
     public Node getLastNode(){
@@ -149,15 +153,25 @@ public class DoublyLinkedList {
 
     // concatenate
     public void appendList(DoublyLinkedList list2){
-        if(this.head == null && list2.head == null ) return ;
-        if (list2.head == null) return ;
-        Node list1end = this.getLastNode() ;
-        Node head2copy = list2.head ;
-        list1end.next = head2copy ;
-        head2copy.previous = list1end ;
+        if(this.head == null ){
+            this.head = list2.head ;
+        }
+        else if (list2.head == null) return ;
+        else {
+            Node list1end = this.getLastNode();
+            Node head2copy = list2.head;
+            list1end.next = head2copy;
+            head2copy.previous = list1end;
+        }
     }
 
+    public void concatenateLists(DoublyLinkedList... lists){
 
+
+        for (DoublyLinkedList list : lists){
+            this.appendList(list);
+        }
+    }
 
 
     @Override
@@ -195,6 +209,25 @@ public class DoublyLinkedList {
         list2.insertAtEnd(0);
         list2.insertAtEnd(0);
         dlinkedList.appendList(list2);
+        System.out.println();
+
+        DoublyLinkedList list3 = new DoublyLinkedList(1) ;
+        list3.insertAtEnd(2);
+        list3.insertAtEnd(3);
+        list3.insertAtEnd(4);
+
+        DoublyLinkedList list4 = new DoublyLinkedList(11) ;
+        list4.insertAtEnd(22);
+        list4.insertAtEnd(33);
+        list4.insertAtEnd(44);
+
+        DoublyLinkedList list5 = new DoublyLinkedList(111) ;
+        list5.insertAtEnd(222);
+        list5.insertAtEnd(333);
+        list5.insertAtEnd(444);
+
+        dlinkedList.concatenateLists(list3,list4,list5);
+        System.out.println("----");
         System.out.println(dlinkedList);
     }
 }
