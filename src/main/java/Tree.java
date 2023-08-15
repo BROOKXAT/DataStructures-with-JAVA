@@ -27,26 +27,31 @@ public class Tree {
         this.root = new Node(data) ;
         this.height = 0 ;
     }
+
     // find operations
-    public void findeDeepestNodeHelper(int data, int currentdepth, int deepestdeepth,Node currentnode,Node deepestnode) {
+    // we use a one array argument because java is by default pass by value and if we dont do that the void function won change the value of
+    // initial values of deepest node.
+    public void findeDeepestNodeHelper(int data, int currentdepth, int deepestdeepth,Node currentnode,Node[] deepestnode) {
         if (currentnode == null) return;
         if (currentnode.data == data) {
-            if (deepestnode == null || currentdepth > deepestdeepth) {
-                deepestnode = currentnode;
+            if (deepestnode[0] == null || currentdepth > deepestdeepth) {
+                deepestnode[0] = currentnode;
                 deepestdeepth = currentdepth;
             }
         }
         for (Node child : currentnode.sons) {
             findeDeepestNodeHelper(data, currentdepth + 1, deepestdeepth, child, deepestnode);
         }
+        if (deepestnode[0] != null)System.out.println(deepestnode[0].data+"..."+deepestdeepth);
     }
 
     public Node findDeepestNode(int data) {
         Node currentnode = this.root;
         int currentdepth = 0;
-        Node deepestnode = null ;
+        Node[] deepestnode = {null} ;
         findeDeepestNodeHelper(data,0,0,currentnode,deepestnode);
-        return deepestnode;
+        System.out.println(deepestnode[0].data+" in function");
+        return deepestnode[0];
 
     }
 
@@ -80,11 +85,13 @@ public class Tree {
         test.addNode(node1,test.root);
         test.addNode(node2,test.root);
         Node node1son1 = new Node(11);
-        Node node1son2 = new Node(22);
+        Node node1son2 = new Node(1);
 
         node1.addSon(node1son1);
         node1.addSon(node1son2);
         String s = test.generateTreeString(test.root,2);
         System.out.println(s);
+        System.out.println("-------------------------");
+        System.out.println(test.findDeepestNode(1).sons);
     }
 }
