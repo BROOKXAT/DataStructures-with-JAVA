@@ -29,8 +29,8 @@ public class Tree {
     }
 
     // find operations
-    // we use a one array argument because java is by default pass by value and if we dont do that the void function won change the value of
-    // initial values of deepest node.
+    // we use a one array argument because java is by default pass by value and if we dont do that the void function wont change the value of
+    // the initial values of deepest node.
     public void findeDeepestNodeHelper(int data, int currentdepth, int deepestdeepth,Node currentnode,Node[] deepestnode) {
         if (currentnode == null) return;
         if (currentnode.data == data) {
@@ -42,27 +42,33 @@ public class Tree {
         for (Node child : currentnode.sons) {
             findeDeepestNodeHelper(data, currentdepth + 1, deepestdeepth, child, deepestnode);
         }
-        if (deepestnode[0] != null)System.out.println(deepestnode[0].data+"..."+deepestdeepth);
     }
 
     public Node findDeepestNode(int data) {
         Node currentnode = this.root;
-        int currentdepth = 0;
         Node[] deepestnode = {null} ;
         findeDeepestNodeHelper(data,0,0,currentnode,deepestnode);
-        System.out.println(deepestnode[0].data+" in function");
         return deepestnode[0];
-
     }
 
     // add/delete nodes
     public void addNode(Node newnode, Node parentnode){
+        if (parentnode == null) {
+            System.out.println("parent node is null");
+            return;
+        }
         newnode.parent = parentnode ;
         parentnode.addSon(newnode);
     }
     // this function will delete the deepest node with the value given.(son of the node will be gone too as a result)
     public void deleteNode(int data ){
-
+        Node nodeToDelete = this.findDeepestNode(data) ;
+        if (nodeToDelete == null) {
+            System.out.println("node doesnt exist");
+            return;
+        }
+        nodeToDelete.parent.sons.remove(nodeToDelete) ;
+        nodeToDelete.parent = null ;
     }
 
 
@@ -86,12 +92,17 @@ public class Tree {
         test.addNode(node2,test.root);
         Node node1son1 = new Node(11);
         Node node1son2 = new Node(1);
-
+        Node node2son1 = new Node(222) ;
+        Node node2son2 = new Node(333) ;
         node1.addSon(node1son1);
         node1.addSon(node1son2);
+        node2.addSon(node2son1);
+        node2.addSon(node2son2);
         String s = test.generateTreeString(test.root,2);
         System.out.println(s);
         System.out.println("-------------------------");
         System.out.println(test.findDeepestNode(1).sons);
+        test.deleteNode(2);
+        System.out.println(test.generateTreeString(test.root,2));
     }
 }
